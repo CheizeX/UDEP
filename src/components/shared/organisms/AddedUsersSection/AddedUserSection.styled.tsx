@@ -61,7 +61,7 @@ export const StyledHeaderUsersSection = styled.header`
       }
     }
     & > :nth-child(3) {
-      z-index: 2;
+      /* z-index: 2; */
     }
     & > span {
       border-left: 1px solid ${({ theme }) => theme.Colors.grays[9]};
