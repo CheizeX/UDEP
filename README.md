@@ -1,4 +1,4 @@
-# AILALIA FRONT
+# UDEP-Elipse FRONT
 
 ## I. Installation
 
