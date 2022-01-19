@@ -67,6 +67,18 @@ const StyledDetails = styled.div`
   & div {
     z-index: 0;
   }
+  & > :nth-child(3) {
+    & > div {
+      & * {
+        & > svg {
+          & > path {
+            fill: ${({ theme }) => theme.Colors.grays[10]};
+            opacity: 0.3;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const DashTotalChatsByState: FC = () => {
@@ -165,13 +177,32 @@ export const DashTotalChatsByState: FC = () => {
               todayChats.length > 0
                 ? todayChats
                     ?.filter(
-                      (chat) => chat.status === ChatStatus.ON_CONVERSATION,
+                      (chat) =>
+                        chat.status === ChatStatus.ON_CONVERSATION &&
+                        chat.isPaused === false,
                     )
                     .length.toString()
                 : '0'
             }
             position="two"
             icon="/icons/en-conversacion.svg"
+          />
+          <ChatsStateCard
+            key="Chats en Pausa"
+            name="Chats en Pausa"
+            number={
+              todayChats.length > 0
+                ? todayChats
+                    ?.filter(
+                      (chat) =>
+                        chat.status === ChatStatus.ON_CONVERSATION &&
+                        chat.isPaused === true,
+                    )
+                    .length.toString()
+                : '0'
+            }
+            position="four"
+            icon="/icons/pause.svg"
           />
           <ChatsStateCard
             key="finished"

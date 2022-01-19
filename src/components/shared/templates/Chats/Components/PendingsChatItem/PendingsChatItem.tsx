@@ -75,12 +75,21 @@ export const PendingsChatItem: FC<
   //   }
   // }, [activeTabInState]);
 
+  // const data = useMemo(() => {
+  //   if (!searchByName) return chatsPendings;
+  //   return chatsPendings.filter((agent) =>
+  //     agent.client.name.toLowerCase().includes(searchByName.toLowerCase()),
+  //   );
+  // }, [searchByName]);
+  // console.log(data);
+
   return (
     <StyledPendingChatsContainer>
       {chatsPendings &&
         chatsPendings
           .filter(
             (user) =>
+              //  Filtro para los canales y etiquetas
               (tagsToFilter.length > 0 &&
                 channelsToFilter.length > 0 &&
                 channelsToFilter?.includes(user.channel) &&
@@ -97,6 +106,10 @@ export const PendingsChatItem: FC<
               (tagsToFilter.length === 0 &&
                 channelsToFilter.length === 0 &&
                 chatsPendings),
+            // user.client.name
+            //   .toLowerCase()
+            //   .includes(searchByName.toLowerCase()) ||
+            // user.client.clientId.replace(/[.,-]/g, '').includes(searchByName),
           )
           .map((chat: Chat) => (
             <StyledPendingWrapper

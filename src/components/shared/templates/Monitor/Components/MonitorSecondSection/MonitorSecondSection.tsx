@@ -96,7 +96,7 @@ export const MonitorSecondSection: FC<IMonitorSecondSection> = ({
             <span>
               <div>
                 <BadgeMolecule
-                  bgColor="#24C3A7"
+                  bgColor="#3AA4FF"
                   rightIcon={() => (
                     <SVGIcon iconFile="/icons/small_message.svg" />
                   )}>
@@ -167,7 +167,7 @@ export const MonitorSecondSection: FC<IMonitorSecondSection> = ({
               </BadgeMolecule>
             </span>
           </div>
-        )) ?? []}
+        )) || []}
       </WrapperSecondSectionAgent>
     </StyledWrapperSectionMonitor>
   );

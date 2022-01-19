@@ -36,6 +36,8 @@ export const ChatsList: FC<
     ChatInputDialogueProps &
     FilterChannelsProps &
     FilterChannel &
+    // IPropsSearchByName &
+    // IPropsStringName &
     ShowOnlyPaused
 > = ({
   setUserSelected,
@@ -82,6 +84,7 @@ export const ChatsList: FC<
                 isPendings
                 setSortedChats={setSortedChats}
                 sortedChats={sortedChats || false}
+                // onChangeSearchName={onChangeSearchName}
               />
               <PendingsChatItem
                 chatsPendings={chatsPendings}
@@ -90,6 +93,7 @@ export const ChatsList: FC<
                 setSortedChats={setSortedChats}
                 sortedChats={sortedChats || false}
                 setActiveByDefaultTab={setActiveByDefaultTab}
+                // searchByName={searchByName}
               />
             </StyledPendingsRender>
           </StyledPendings>
@@ -104,6 +108,7 @@ export const ChatsList: FC<
                 channel={channel}
                 setSortedChats={setSortedChats}
                 sortedChats={sortedChats || false}
+                // onChangeSearchName={onChangeSearchName}
               />
               <InConversationChatItem
                 showOnlyPausedChats={showOnlyPausedChats}
@@ -115,6 +120,7 @@ export const ChatsList: FC<
                 setActiveByDefaultTab={setActiveByDefaultTab}
                 setDropZoneDisplayed={setDropZoneDisplayed}
                 setChatInputDialogue={setChatInputDialogue}
+                // searchByName={searchByName}
               />
             </StyledInConversationRender>
           </StyledInConversation>
@@ -134,6 +140,7 @@ export const ChatsList: FC<
                 isPendings
                 setSortedChats={setSortedChats}
                 sortedChats={sortedChats || false}
+                // onChangeSearchName={onChangeSearchName}
               />
               <PendingsChatItem
                 chatsPendings={chatsPendings}
@@ -142,6 +149,7 @@ export const ChatsList: FC<
                 setSortedChats={setSortedChats}
                 sortedChats={sortedChats || false}
                 setActiveByDefaultTab={setActiveByDefaultTab}
+                // searchByName={searchByName}
               />
             </StyledPendingsRender>
           </StyledPendings>
@@ -156,6 +164,7 @@ export const ChatsList: FC<
                 channel={channel}
                 setSortedChats={setSortedChats}
                 sortedChats={sortedChats || false}
+                // onChangeSearchName={onChangeSearchName}
               />
               <InConversationChatItem
                 showOnlyPausedChats={showOnlyPausedChats}
@@ -167,6 +176,7 @@ export const ChatsList: FC<
                 setActiveByDefaultTab={setActiveByDefaultTab}
                 setDropZoneDisplayed={setDropZoneDisplayed}
                 setChatInputDialogue={setChatInputDialogue}
+                // searchByName={searchByName}
               />
             </StyledInConversationRender>
           </StyledInConversation>

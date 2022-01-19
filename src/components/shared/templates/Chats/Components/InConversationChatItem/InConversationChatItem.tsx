@@ -34,6 +34,14 @@ import {
   setSortedByFirstDate,
 } from '../../../../../../redux/slices/live-chat/on-conversation-chats';
 import { Tag } from '../../../../../../models/tags/tag';
+import { readHistoryChat } from '../../../../../../api/chat';
+import {
+  setChatsHasHistory,
+  setChatsIdChannel,
+  setChatsIdClient,
+} from '../../../../../../redux/slices/live-chat/chat-history';
+import { useToastContext } from '../../../../molecules/Toast/useToast';
+import { Toast } from '../../../../molecules/Toast/Toast.interface';
 
 export const InConversationChatItem: FC<
   StyledLabelProps &
@@ -51,6 +59,7 @@ export const InConversationChatItem: FC<
   showOnlyPausedChats,
 }) => {
   const dispatch = useAppDispatch();
+  const showAlert = useToastContext();
 
   const { chatsOnConversation } = useAppSelector(
     (state) => state.liveChat.chatsOnConversation,
@@ -61,9 +70,21 @@ export const InConversationChatItem: FC<
 
   const [timeLapse, setTimeLapse] = React.useState(Date.now());
 
-  const handleSendMessageToUser = async (arg: string) => {
+  const handleSendMessageToUser = async (arg: string, channel: string) => {
     setUserSelected(arg);
     setActiveByDefaultTab(1);
+    try {
+      const hasHistory = await readHistoryChat(channel, arg, 'hasHistory');
+      dispatch(setChatsHasHistory(hasHistory));
+      dispatch(setChatsIdChannel(channel));
+      dispatch(setChatsIdClient(arg));
+    } catch (err) {
+      showAlert?.addToast({
+        alert: Toast.ERROR,
+        title: 'ERROR',
+        message: `No se puede establecer la conexión con el servidor`,
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -103,12 +124,20 @@ export const InConversationChatItem: FC<
                 chatsOnConversation),
           )
           .filter((user) => (showOnlyPausedChats ? user.isPaused : user))
+          // filtro de busqueda por nombre y rut
+          //     user.client.name
+          //       .toLowerCase()
+          //       .includes(searchByName.toLowerCase()) ||
+          //     user.client.clientId.replace(/[.,-]/g, '').includes(searchByName),
+          // )
           .map((chat: Chat) => (
             <StyledInConversationWrapper
               focusedItem={chat.client.clientId === userSelected}
               pausedItem={chat.isPaused}
               key={chat.createdAt.toString()}
-              onClick={() => handleSendMessageToUser(chat.client.clientId)}>
+              onClick={() =>
+                handleSendMessageToUser(chat.client.clientId, chat.channel)
+              }>
               <StyledInConversationChatItem>
                 <StyledClientAndAgentAvatars>
                   {chat.isPaused && <SVGIcon iconFile="/icons/pause.svg" />}

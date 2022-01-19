@@ -1,0 +1,93 @@
+export const weekdaysForBusinessTime = [
+  {
+    id: 1,
+    name: 'Lunes',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+    reStart: '00:00',
+    reEnd: '00:00',
+  },
+  {
+    id: 2,
+    name: 'Martes',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  {
+    id: 3,
+    name: 'Miércoles',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  {
+    id: 4,
+    name: 'Jueves',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  {
+    id: 5,
+    name: 'Viernes',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  {
+    id: 6,
+    name: 'Sábado',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  {
+    id: 7,
+    name: 'Domingo',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+];
+
+export const weekdaysForBusinessTimeObject = {
+  Lunes: {
+    id: 1,
+    name: 'Lunes',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+    reStart: '00:00',
+    reEnd: '00:00',
+  },
+  Martes: {
+    id: 2,
+    name: 'Martes',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  Miercoles: {
+    id: 3,
+    name: 'Miércoles',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  Jueves: {
+    id: 4,
+    name: 'Jueves',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+  Viernes: {
+    id: 5,
+    name: 'Viernes',
+    isActive: false,
+    start: '00:00',
+    end: '00:00',
+  },
+};

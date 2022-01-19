@@ -33,7 +33,12 @@ export const StyledHeaderChatsViewSelectedToConfirm = styled.div`
     align-items: center;
     & button {
       cursor: pointer;
-      width: 26px;
+      min-width: 40px;
+      max-width: 40px;
+      width: 100%;
+      height: 36px;
+      display: flex;
+      justify-content: flex-end;
     }
     & > :first-child {
       border-radius: 50%;

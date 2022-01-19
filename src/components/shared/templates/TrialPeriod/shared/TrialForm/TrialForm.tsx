@@ -20,6 +20,8 @@ const initialValues = {
   email: '',
   telefono: '',
   empresa: '',
+  contraseña: '',
+  verificarContraseña: '',
 };
 
 const validationSchema = Yup.object({
@@ -90,7 +92,10 @@ export const TrialForm: FC = () => {
                 alt="logo"
               />
               <StyledTrialFormContainer>
-                <h1>Datos requeridos para acceder al período de evaluación</h1>
+                <h1>
+                  Completa los siguientes campos para poder acceder al período
+                  de evaluación
+                </h1>
                 {/* <StyledInfoCard>
                   <div>
                     <div>

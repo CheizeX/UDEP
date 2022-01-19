@@ -25,6 +25,7 @@ export const FacebookAccountSelector: FC<IPropsSelector & IPropsAuthFacebook> =
     const handleClick = (
       pageId: string,
       accessToken: string,
+      name: string,
       index: number,
     ) => {
       setIsActive(index);
@@ -32,6 +33,7 @@ export const FacebookAccountSelector: FC<IPropsSelector & IPropsAuthFacebook> =
       setDatosAuth({
         pageId,
         accessToken,
+        pageName: name,
       });
     };
     return (
@@ -46,7 +48,7 @@ export const FacebookAccountSelector: FC<IPropsSelector & IPropsAuthFacebook> =
                 <StyledBodyWrapperSelector>
                   <StyledButtonAuth
                     onClick={() =>
-                      handleClick(item.id, item.access_token, index)
+                      handleClick(item.id, item.access_token, item.name, index)
                     }>
                     <StyledWrapperButton isFocused={isActive === index}>
                       <Styledbutton isFocused={isActive === index} />

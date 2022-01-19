@@ -1,14 +1,14 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-nested-ternary */
-import { FC } from "react";
+import { FC } from 'react';
 
-import { ButtonMolecule } from "../../../atoms/Button/Button";
-import { SVGIcon } from "../../../atoms/SVGIcon/SVGIcon";
+import { ButtonMolecule } from '../../../atoms/Button/Button';
+import { SVGIcon } from '../../../atoms/SVGIcon/SVGIcon';
 import {
   planes,
   SubscriptionSectionItems,
   SubscriptionSectionPersonalizedItems,
-} from "./SubscriptionSection.shared";
+} from './SubscriptionSection.shared';
 
 import {
   StyledSubscriptionSectionWebchatBody,
@@ -24,21 +24,21 @@ import {
   StyledSubscriptionSectionBody,
   StyledSubscriptionSectionEnterpriseCard,
   StyledSelectedPlanHeader,
-} from "./SubscriptionSection.styled";
+} from './SubscriptionSection.styled';
 
 export interface SubscriptionSectionProps {
   userName?: string;
   plan?: string;
   trial?: boolean;
-  trialEnd?: "string";
+  trialEnd?: 'string';
   active?: boolean;
 }
 
 export const userData = {
-  userName: "Felipe",
-  plan: "Business",
+  userName: 'Felipe',
+  plan: 'Business',
   trial: false,
-  trialEnd: "",
+  trialEnd: '',
 };
 
 export const SubscriptionSection: FC = () => {
@@ -81,37 +81,37 @@ export const SubscriptionSection: FC = () => {
                   <h3>${plan.price},00</h3>
                 )}
               </StyledSubscriptionSectionCardHeader>
-              {plan.name !== "Enterprise" &&
+              {plan.name !== 'Enterprise' &&
                 SubscriptionSectionItems?.map(({ id, item }) => (
                   <div key={id}>
-                    <SVGIcon iconFile='/icons/success.svg' />
+                    <SVGIcon iconFile="/icons/success.svg" />
                     <span>
-                      {id === 0 && plan.name === "Start" && "3 "}
-                      {id === 0 && plan.name === "Business" && "5 "}
-                      {id === 0 && plan.name === "Corporate" && "10 "}
+                      {id === 0 && plan.name === 'Start' && '3 '}
+                      {id === 0 && plan.name === 'Business' && '5 '}
+                      {id === 0 && plan.name === 'Corporate' && '10 '}
                       {item}
                     </span>
                   </div>
                 ))}
-              {plan.name !== "Enterprise" && plan.name !== "Start" && (
-                <div key='7'>
-                  <SVGIcon iconFile='/icons/success.svg' />
+              {plan.name !== 'Enterprise' && plan.name !== 'Start' && (
+                <div key="7">
+                  <SVGIcon iconFile="/icons/success.svg" />
                   <span
                     style={{
-                      fontSize: "14px",
+                      fontSize: '14px',
                     }}>
-                    {" "}
+                    {' '}
                     WhatsApp Business API (costo de sesión a cargo del cliente)
                   </span>
                 </div>
               )}
               {plan.name === userData.plan ? null : (
                 <ButtonMolecule
-                  type='button'
-                  // onClick={() => {
-                  //   console.log(plan.name);
-                  // }}
-                  text={`Contratar${"  "} ${plan.name}`}
+                  type="button"
+                  onClick={() => {
+                    console.log(plan.name);
+                  }}
+                  text={`Contratar${'  '} ${plan.name}`}
                 />
               )}
             </StyledSubscriptionSectionCard>
@@ -119,51 +119,51 @@ export const SubscriptionSection: FC = () => {
         </div>
         <div>
           <StyledSubscriptionSectionEnterpriseCard
-            active={userData.plan === "Enterprise"}>
+            active={userData.plan === 'Enterprise'}>
             <StyledSubscriptionSectionEnterpriseCardHeader
-              active={userData.plan === "Enterprise"}>
+              active={userData.plan === 'Enterprise'}>
               <h1> Enterprise </h1>
             </StyledSubscriptionSectionEnterpriseCardHeader>
             <StyledSubscriptionSectionEnterpriseCardBody
-              active={userData.plan === "Enterprise"}>
+              active={userData.plan === 'Enterprise'}>
               <div>
                 {SubscriptionSectionPersonalizedItems.map(({ id, item }) => (
                   <div key={id}>
-                    <SVGIcon iconFile='/icons/success.svg' />
+                    <SVGIcon iconFile="/icons/success.svg" />
                     <span>{item}</span>
                   </div>
                 ))}
               </div>
             </StyledSubscriptionSectionEnterpriseCardBody>
-            {userData.plan === "Enterprise" ? null : (
+            {userData.plan === 'Enterprise' ? null : (
               <ButtonMolecule
-                type='button'
-                // onClick={() => {
-                //   console.log("Enterprise");
-                // }}
-                text='Contactar a un asesor para personalizar el plan'
+                type="button"
+                onClick={() => {
+                  console.log('Enterprise');
+                }}
+                text="Contactar a un asesor para personalizar el plan"
               />
             )}
           </StyledSubscriptionSectionEnterpriseCard>
-          {userData.plan === "Webchat" ? (
+          {userData.plan === 'Webchat' ? (
             <StyledSubscriptionSectionWebchat
-              active={userData.plan === "Webchat"}>
+              active={userData.plan === 'Webchat'}>
               <StyledSubscriptionSectionWebchatHeader>
                 <h1>Webchat</h1>
                 <h3>Gratuito!</h3>
               </StyledSubscriptionSectionWebchatHeader>
               <StyledSubscriptionSectionWebchatBody
-                active={userData.plan === "Webchat"}>
+                active={userData.plan === 'Webchat'}>
                 <div>
-                  <SVGIcon iconFile='/icons/success.svg' />
+                  <SVGIcon iconFile="/icons/success.svg" />
                   <span>Webchat</span>
                 </div>
                 <div>
-                  <SVGIcon iconFile='/icons/success.svg' />
+                  <SVGIcon iconFile="/icons/success.svg" />
                   <span>2 Agentes</span>
                 </div>
                 <div>
-                  <SVGIcon iconFile='/icons/success.svg' />
+                  <SVGIcon iconFile="/icons/success.svg" />
                   <span>1 Supervisor</span>
                 </div>
               </StyledSubscriptionSectionWebchatBody>

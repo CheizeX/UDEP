@@ -53,13 +53,13 @@ export const StyledHeaderUsersSection = styled.header`
         }
       }
     }
-    & > :nth-child(2) {
+    /* & > :nth-child(2) {
       & div {
         align-items: center;
         display: flex;
         justify-content: center;
       }
-    }
+    } */
     & > :nth-child(3) {
       /* z-index: 2; */
     }

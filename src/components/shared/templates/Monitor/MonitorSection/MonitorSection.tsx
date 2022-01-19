@@ -10,7 +10,13 @@ import { websocketContext } from '../../../../../chat/index';
 import { Channels, Chat, ChatStatus } from '../../../../../models/chat/chat';
 import { User } from '../../../../../models/users/user';
 import { UserStatus } from '../../../../../models/users/status';
-import { setChatsToday } from '../../../../../redux/slices/monitor/monitor-chats';
+import {
+  setChatsToday,
+  setCountPending,
+  setCountFinished,
+  setCountPause,
+  setCountOnConversation,
+} from '../../../../../redux/slices/monitor/monitor-chats';
 import { Toast } from '../../../molecules/Toast/Toast.interface';
 import { useToastContext } from '../../../molecules/Toast/useToast';
 import { MonitorFirstSection } from '../Components/MonitorFirstSection/MonitorFirstSection';
@@ -112,7 +118,9 @@ export const MonitorSection: FC = () => {
       if (result.success === false) {
         dispatch(setAgentsAvailable([]));
       } else {
+        dispatch(setCountAgentsAvailable(result.length));
         dispatch(setAgentsAvailable(result));
+        dispatch(setCountAgentsAvailable(result.length));
       }
     } catch (err) {
       showAlert?.addToast({
@@ -128,9 +136,9 @@ export const MonitorSection: FC = () => {
       if (data.success === false) {
         dispatch(setAgentsNotAvailable([]));
       } else {
-        const dataAgents = data.filter((item: User) => item.role === 'AGENT');
+        const dataAgents = data?.filter((item: User) => item.role === 'AGENT');
         dispatch(setAllUser(dataAgents));
-        const userPaused = data.filter(
+        const userPaused = data?.filter(
           (item: User) => item.status === 'BATHROOM' || item.status === 'LUNCH',
         );
         dispatch(setInfoByAgent(data));
@@ -155,6 +163,26 @@ export const MonitorSection: FC = () => {
       if (response.success === false) {
         dispatch(setChatsToday([]));
       } else {
+        const countOnConversation = response?.filter(
+          (chat: Chat) =>
+            chat.status === ChatStatus.ON_CONVERSATION &&
+            chat.isPaused === false,
+        );
+        const countIsPause = response?.filter(
+          (chat: Chat) =>
+            chat.status === ChatStatus.ON_CONVERSATION &&
+            chat.isPaused === true,
+        );
+        const countIspending = response?.filter(
+          (chat: Chat) => chat.status === ChatStatus.ASSIGNMENT_PENDING,
+        );
+        const countIsFinished = response?.filter(
+          (chat: Chat) => chat.status === ChatStatus.FINISHED,
+        );
+        dispatch(setCountOnConversation(countOnConversation.length));
+        dispatch(setCountPause(countIsPause.length));
+        dispatch(setCountPending(countIspending.length));
+        dispatch(setCountFinished(countIsFinished.length));
         dispatch(setChatsToday(response));
       }
     } catch (err) {
@@ -253,6 +281,24 @@ export const MonitorSection: FC = () => {
 
   useEffect(() => {
     socket.on('newChatEvent', (data: Chat[]) => {
+      const countOnConversation = data?.filter(
+        (chat) =>
+          chat.status === ChatStatus.ON_CONVERSATION && chat.isPaused === false,
+      );
+      const countIsPause = data?.filter(
+        (chat) =>
+          chat.status === ChatStatus.ON_CONVERSATION && chat.isPaused === true,
+      );
+      const countIspending = data?.filter(
+        (chat) => chat.status === ChatStatus.ASSIGNMENT_PENDING,
+      );
+      const countIsFinished = data?.filter(
+        (chat) => chat.status === ChatStatus.FINISHED,
+      );
+      dispatch(setCountOnConversation(countOnConversation.length));
+      dispatch(setCountPause(countIsPause.length));
+      dispatch(setCountPending(countIspending.length));
+      dispatch(setCountFinished(countIsFinished.length));
       dispatch(setChatsToday(data));
     });
     socket.on('newUserStatusChange', (data: User[]) => {

@@ -17,8 +17,9 @@ export class BaseRestApi {
       config: AxiosRequestConfig,
     ) {
       // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Bearer ${window.localStorage.getItem('AccessToken') || ''
-        }`;
+      config.headers.Authorization = `Bearer ${
+        window.localStorage.getItem('AccessToken') || ''
+      }`;
 
       return config;
     });
@@ -32,7 +33,7 @@ export class BaseRestApi {
       }
       return response.data.result;
     } catch (err: any) {
-      // appLogger.warn(err);
+      appLogger.warn(err);
       if (err.response.data.errorMessage === 'Jwt Expired') {
         localStorage.removeItem('AccessToken');
         router.push('/');
@@ -47,7 +48,7 @@ export class BaseRestApi {
       }
       throw new Error(
         (err as AxiosError<IErrorResponse>).response?.data.ailaliaErrorCode ||
-        'AIL-501',
+          'AIL-501',
       );
       // throw new Error('AIL-501');
     }

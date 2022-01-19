@@ -16,7 +16,6 @@ import { ChatTransfer } from '../Components/ChatTransfer/ChatTransfer';
 import { EndChat } from '../Components/EndChat/EndChat';
 import { PauseChat } from '../Components/PauseChat/PauseChat';
 import { ReloadChat } from '../Components/ReloadChat/ReloadChat';
-import { ChatsHistory } from '../Components/ChatHistory/ChatHistory';
 import { useToastContext } from '../../../molecules/Toast/useToast';
 import { Toast } from '../../../molecules/Toast/Toast.interface';
 import { useAppDispatch } from '../../../../../redux/hook/hooks';
@@ -29,6 +28,8 @@ import {
   FilterChannelsProps,
   FilterChannel,
 } from '../Components/ChatsFilter/ChatFilter/ChatFilter.interface';
+import { ModalClosePreviousSession } from '../Components/ModalClosePreviousSession/ModalClosePreviousSession';
+import { SeccionChatHistory } from '../Components/SeccionChatHistory/SeccionChatHistory';
 
 export const ChatsSection: FC<
   UploadableFile &
@@ -65,10 +66,17 @@ export const ChatsSection: FC<
   const [chatInputDialogue, setChatInputDialogue] = useState<string>('');
   const [dropZoneDisplayed, setDropZoneDisplayed] = useState<boolean>(false);
   const [emojisDisplayed, setEmojisDisplayed] = React.useState<boolean>(false);
+  // const [searchByName, setSearchByName] = useState<string>('');
   const [showPredefinedTexts, setShowPredefinedTexts] =
     React.useState<boolean>(false);
   const [findDialogueInChat, setFindDialogueInChat] =
     React.useState<string>('');
+
+  // Funcion para buscar por nombre y rut
+  // const onChangeSearchName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchByName(event.target.value);
+  // };
+  // Fución para buscar por Rut
 
   // --------------- <<< WEB SOCKET EVENTS >>> -----------------
   // Escucha los chats de usuarios o agentes según el parámetro que se le pase
@@ -80,9 +88,7 @@ export const ChatsSection: FC<
 
   // Escucha los mensajes de usuarios que ya enviaron el primer mensaje, pero que todavía no se encuentran ON_CONVERSATION
   const getNewPendingChat = useCallback(async () => {
-    socket?.on('connect', () => {
-      console.log('WS CONNECTED');
-    });
+    socket?.on('connect', () => {});
     socket?.on('newUserMessageToBeAssigned', (data: Chat[]) => {
       dispatch(setChatsPendings(data));
     });
@@ -124,7 +130,15 @@ export const ChatsSection: FC<
     });
   }, []);
   //-----------------------------------------------------------------------
-
+  // escucha si se ha iniciado sessión desde otro navegador.
+  const wsClosePreviousSession = useCallback(async () => {
+    socket?.on('closePreviousSession', () => {
+      setLiveChatModal(true);
+      setLiveChatPage('ModalPreviousSession');
+      // localStorage.removeItem('AccessToken');
+      // router.push('/');
+    });
+  }, []);
   // trae todos los chats que se encuentran ON_CONVERSATION
   const getOnConversationChats = useCallback(async () => {
     try {
@@ -172,6 +186,7 @@ export const ChatsSection: FC<
     wsGetPendingChats();
     wsGetTransferedChats();
     newPausedConversation();
+    wsClosePreviousSession();
   }, [socket]);
 
   useEffect(() => {
@@ -200,6 +215,9 @@ export const ChatsSection: FC<
         setActiveByDefaultTab={setActiveByDefaultTab}
         setDropZoneDisplayed={setDropZoneDisplayed}
         setChatInputDialogue={setChatInputDialogue}
+        // Funciones para realizar busqueda de nombre y rut
+        // onChangeSearchName={onChangeSearchName}
+        // searchByName={searchByName}
       />
 
       {!userSelected ? (
@@ -260,7 +278,7 @@ export const ChatsSection: FC<
         ) : null}
 
         {liveChatPage && liveChatPage === 'HistoryChat' ? (
-          <ChatsHistory
+          <SeccionChatHistory
             liveChatModal={liveChatModal}
             setLiveChatModal={setLiveChatModal}
           />
@@ -278,6 +296,9 @@ export const ChatsSection: FC<
             setLiveChatModal={setLiveChatModal}
             setLiveChatPage={setLiveChatPage}
           />
+        ) : null}
+        {liveChatPage && liveChatPage === 'ModalPreviousSession' ? (
+          <ModalClosePreviousSession setLiveChatModal={setLiveChatModal} />
         ) : null}
       </ModalMolecule>
     </StyledChatsSection>

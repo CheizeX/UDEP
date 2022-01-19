@@ -34,6 +34,7 @@ export const ChatsListHeader: FC<
   setCheckedTags,
   showOnlyPausedChats,
   setShowOnlyPausedChats,
+  // onChangeSearchName,
 }) => {
   const { chatsOnConversation } = useAppSelector(
     (state) => state.liveChat.chatsOnConversation,
@@ -41,6 +42,7 @@ export const ChatsListHeader: FC<
   const { chatsPendings } = useAppSelector(
     (state) => state.liveChat.chatsPendings,
   );
+  // const [isFocus, setIsFocus] = useState<boolean>(false);
 
   return (
     <StyledChatsListHeader
@@ -54,6 +56,15 @@ export const ChatsListHeader: FC<
             : chatsOnConversation?.length || 0}
         </StyledUsersCounter>
       </StyledChatsListHeaderLeft>
+      {/* <WrapperSearch isFocus={isFocus}>
+         <StyledSearch
+          onChange={onChangeSearchName}
+          placeholder="Buscar..."
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+        />
+        <SVGIcon iconFile="/icons/search-solid.svg" />
+      </WrapperSearch> */}
       {!isPendings && showOnlyPausedChats && (
         <button type="button" onClick={() => setShowOnlyPausedChats(false)}>
           <SVGIcon iconFile="/icons/pause.svg" />

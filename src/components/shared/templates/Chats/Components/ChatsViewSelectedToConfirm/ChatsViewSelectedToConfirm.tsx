@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import React, { FC, useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Text } from '../../../../atoms/Text/Text';
 import { SVGIcon } from '../../../../atoms/SVGIcon/SVGIcon';
 import { ButtonMolecule } from '../../../../atoms/Button/Button';
@@ -45,6 +46,9 @@ import useLocalStorage from '../../../../../../hooks/use-local-storage';
 import { setChatsToSendId } from '../../../../../../redux/slices/live-chat/chat-selected-to-send-id';
 import { setChatToTransferById } from '../../../../../../redux/slices/live-chat/chat-selected-to-transfer-by-id';
 import { setChatToSetOnConversationInStateId } from '../../../../../../redux/slices/live-chat/chatset-on-conversation';
+import { RootState } from '../../../../../../redux';
+import { readHistoryChat } from '../../../../../../api/chat';
+import { setChatsHistory } from '../../../../../../redux/slices/live-chat/chat-history';
 
 export const ChatsViewSelectedToConfirm: FC<
   SelectedUserProps &
@@ -85,6 +89,10 @@ export const ChatsViewSelectedToConfirm: FC<
   );
   const { chatsOnConversation } = useAppSelector(
     (state) => state.liveChat.chatsOnConversation,
+  );
+
+  const { hasHistory, idClient, idChannel } = useSelector(
+    (state: RootState) => state.liveChat.chatsHistoryState,
   );
 
   const [sendingMessage, setSendingMessage] = React.useState<boolean>(false);
@@ -294,9 +302,23 @@ export const ChatsViewSelectedToConfirm: FC<
     setChatInputDialogue(e.target.value);
   };
 
-  const handleClickHistoryChat = (open: boolean, pages: string) => {
-    setLiveChatModal(open);
-    setLiveChatPage(pages);
+  const handleClickHistoryChat = async (open: boolean, pages: string) => {
+    try {
+      const data = await readHistoryChat(idChannel, idClient, 'chats');
+      if (data.success === false) {
+        dispatch(setChatsHistory([]));
+      } else {
+        dispatch(setChatsHistory(data));
+        setLiveChatModal(open);
+        setLiveChatPage(pages);
+      }
+    } catch (error) {
+      showAlert?.addToast({
+        alert: Toast.ERROR,
+        title: 'ERROR',
+        message: `Opps error de historial ${error}`,
+      });
+    }
   };
 
   const handlePredefinedTexts = () => {
@@ -338,6 +360,10 @@ export const ChatsViewSelectedToConfirm: FC<
                 {chatsOnConversation?.find(
                   (chat) => chat.client.clientId === userSelected,
                 )?.client.name || userSelected}
+                {' - '}
+                {chatsOnConversation?.find(
+                  (chat) => chat.client.clientId === userSelected,
+                )?.client.clientId || userSelected}
               </Text>
             )}
             {chatsPendings?.find(
@@ -350,11 +376,13 @@ export const ChatsViewSelectedToConfirm: FC<
               </Text>
             )}
           </span>
-          <button
-            type="button"
-            onClick={() => handleClickHistoryChat(true, 'HistoryChat')}>
-            {/* <SVGIcon iconFile="/icons/list_icons.svg" /> */}
-          </button>
+          {hasHistory ? (
+            <button
+              type="button"
+              onClick={() => handleClickHistoryChat(true, 'HistoryChat')}>
+              <SVGIcon iconFile="/icons/list_icons.svg" />
+            </button>
+          ) : null}
         </div>
         {chatsOnConversation?.find(
           (user) =>

@@ -1,0 +1,190 @@
+import styled from 'styled-components';
+import { IContainerCard } from './CardChannel.interface';
+
+export const StyledCardChannel = styled.div`
+  width: 309px;
+  height: 144px;
+  border-radius: 10px;
+  margin: 13px 0 0px 13px;
+  background-color: ${({ theme }) => theme.Colors.grays[10]};
+  // padding: 16px 16px 14px 14px;
+  & > :first-child {
+    display: flex;
+    height: 92px;
+    width: 100%;
+    border-bottom: 1px solid ${({ theme }) => theme.Colors.grays[8]};
+    & > :nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      margin: 16px 0 0 16px;
+      align-items: center;
+      justify-content: center;
+      & > :nth-child(1) {
+        color: ${({ theme }) => theme.Colors.grays[1]};
+        font-size: ${({ theme }) => theme.fontSize[14]};
+        font-weight: ${({ theme }) => theme.fontWeight[600]};
+        line-height: 1rem;
+      }
+      & > :nth-child(2) {
+        color: ${({ theme }) => theme.Colors.grays[3]};
+        font-size: ${({ theme }) => theme.fontSize[12]};
+        font-weight: ${({ theme }) => theme.fontWeight[400]};
+        line-height: 14px;
+      }
+    }
+    & > :nth-child(3) {
+      display: flex;
+      width: 100%;
+      max-width: 100px;
+      justify-content: center;
+      padding-top: 16px;
+      min-height: 40px;
+      max-height: 40px;
+      & > div {
+        width: 55px;
+        display: flex;
+        & > :nth-child(2) {
+          width: 18px;
+          margin-left: 8px;
+          cursor: pointer;
+          & > div {
+            & * {
+              & > svg {
+                width: 6px;
+                height: 22px;
+                & > path {
+                  fill: ${({ theme }) => theme.Colors.grays[6]};
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  & > :last-child {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    padding-left: 17px;
+    & > span {
+      color: ${({ theme }) => theme.Colors.grays[3]};
+      font-size: ${({ theme }) => theme.fontSize[12]};
+      font-weight: ${({ theme }) => theme.fontWeight[600]};
+      line-height: 14px;
+    }
+  }
+`;
+export const StyledPicture = styled.div`
+  display: flex;
+  margin: 16px 0 0 16px;
+  min-width: 64px;
+  position: relative;
+  & > :nth-child(1) {
+    width: 57px;
+    height: 57px;
+    background: ${({ theme }) => theme.Colors.blue[1]};
+    border-radius: 50%;
+    position: relative;
+  }
+  & > :nth-child(2) {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 34px;
+    top: 26px;
+    & > div {
+      & > * {
+        & > svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+`;
+
+export const StyledBoxWrapper = styled.label`
+  position: relative;
+`;
+
+export const CheckBoxLabel = styled.span<IContainerCard>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 26px;
+  border-radius: 15px;
+  background: ${({ theme, isChecked }) =>
+    isChecked === true ? '#e2fadb' : theme.Colors.grays[8]};
+  cursor: pointer;
+  &::after {
+    content: '';
+    display: block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    margin-left: ${({ isChecked }) => (isChecked === true ? '20px' : '3px')};
+    background: ${({ theme, isChecked }) =>
+      isChecked === true ? theme.Colors.green[4] : theme.Colors.grays[5]};
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+`;
+
+export const CheckBox = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 42px;
+  height: 26px;
+  &:checked + ${CheckBoxLabel} {
+    background-color: #e2fadb;
+    &::after {
+      content: '';
+      display: block;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-left: 21px;
+      transition: 0.2s;
+      // background-color: ${({ theme }) => theme.Colors.green[2]};
+      // opacity: 0.3;
+    }
+  }
+`;
+
+export const DropdownContainerCard = styled.div`
+  background-color: ${({ theme }) => theme.Colors.grays[10]};
+  border: 1px solid ${({ theme }) => theme.Colors.grays[8]};
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 12px 8px;
+  & > div {
+    display: flex;
+    border-radius: 4px;
+    justify-content: flex-start;
+    width: 100%;
+    &:hover {
+      background-color: ${({ theme }) => theme.Colors.grays[9]};
+    }
+    &:active {
+      & * {
+        color: ${({ theme }) => theme.Colors.purples[2]};
+        fill: ${({ theme }) => theme.Colors.purples[2]};
+      }
+    }
+  }
+  & span {
+    color: ${({ theme }) => theme.Colors.grays[3]};
+    font-size: ${({ theme }) => theme.fontSize[12]};
+  }
+  & svg {
+    height: 13px;
+    width: 13px;
+    & path {
+      fill: ${({ theme }) => theme.Colors.grays[3]};
+    }
+  }
+`;
