@@ -14,6 +14,7 @@ import {
   setOnConversationTodayChats,
   setTodayAllChats,
   getTodayChats,
+  getChatsByPeriod,
 } from '../../../../../../redux/slices/dashboard/dashboard-chats-filter';
 import { websocketContext } from '../../../../../../chat';
 import { Chat, ChatStatus } from '../../../../../../models/chat/chat';
@@ -110,11 +111,12 @@ export const DashTotalChatsByState: FC = () => {
         ),
       );
       dispatch(setTodayAllChats(data));
+      dispatch(getChatsByPeriod(new Date().toISOString()));
     });
   }, [socket]);
 
   React.useEffect(() => {
-    // dispatch(getChatsByPeriod(new Date().toISOString()));
+    dispatch(getChatsByPeriod(new Date().toISOString()));
     dispatch(getTodayChats());
     getNewChatEvent();
   }, [dispatch, getNewChatEvent]);

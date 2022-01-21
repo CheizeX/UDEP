@@ -48,7 +48,7 @@ export const DialoguesBox: FC<SelectedUserProps & ModalBackgroundProps> = ({
       `${
         process.env.NEXT_PUBLIC_REST_API_URL
       }/whatsapp360/file/${message.content.substring(
-        10,
+        16,
         message.content.length,
       )}${tokenQueryParam}`,
     );
