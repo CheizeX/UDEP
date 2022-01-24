@@ -324,6 +324,10 @@ export const StyledCardAgents = styled.button<IHistoryChatStyled>`
       position: relative;
       left: 8px;
       top: 2px;
+      min-width: 150px;
+      max-width: 160px;
+      display: flex;
+      justify-content: flex-start;
     }
   }
 `;

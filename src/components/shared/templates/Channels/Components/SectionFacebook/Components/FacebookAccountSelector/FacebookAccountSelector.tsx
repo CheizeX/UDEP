@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useAppSelector } from '../../../../../../../../redux/hook/hooks';
 import { Text } from '../../../../../../atoms/Text/Text';
 import {
@@ -16,11 +16,16 @@ import {
 } from './FacebookAccountSelector.styled';
 
 export const FacebookAccountSelector: FC<IPropsSelector & IPropsAuthFacebook> =
-  ({ setDatosAuth, setSelectedComponent }) => {
+  ({
+    setDatosAuth,
+    setSelectedComponent,
+    isActiveCheckbox,
+    setIsActiveCheckbox,
+  }) => {
     const { dataInfoFacebook } = useAppSelector(
       (state) => state.channel.chatContainerAuthFacebookState,
     );
-    const [isActive, setIsActive] = useState<number>(0);
+    // const [isActive, setIsActive] = useState<number>(-1);
 
     const handleClick = (
       pageId: string,
@@ -28,7 +33,7 @@ export const FacebookAccountSelector: FC<IPropsSelector & IPropsAuthFacebook> =
       name: string,
       index: number,
     ) => {
-      setIsActive(index);
+      setIsActiveCheckbox(index);
       setSelectedComponent(3);
       setDatosAuth({
         pageId,
@@ -50,8 +55,8 @@ export const FacebookAccountSelector: FC<IPropsSelector & IPropsAuthFacebook> =
                     onClick={() =>
                       handleClick(item.id, item.access_token, item.name, index)
                     }>
-                    <StyledWrapperButton isFocused={isActive === index}>
-                      <Styledbutton isFocused={isActive === index} />
+                    <StyledWrapperButton isFocused={isActiveCheckbox === index}>
+                      <Styledbutton isFocused={isActiveCheckbox === index} />
                     </StyledWrapperButton>
                   </StyledButtonAuth>
                   <Text>{item.name}</Text>

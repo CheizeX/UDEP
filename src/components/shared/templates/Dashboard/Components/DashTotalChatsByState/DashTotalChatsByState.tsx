@@ -91,6 +91,7 @@ export const DashTotalChatsByState: FC = () => {
 
   const getNewChatEvent = React.useCallback(async () => {
     await socket?.on('newChatEvent', (data: Chat[]) => {
+      console.log(data);
       dispatch(
         setFinishedTodayChats(
           data.filter((chat: Chat) => chat.status === ChatStatus.FINISHED),
@@ -110,13 +111,14 @@ export const DashTotalChatsByState: FC = () => {
           ),
         ),
       );
+
       dispatch(setTodayAllChats(data));
-      dispatch(getChatsByPeriod(new Date().toISOString()));
+      dispatch(getChatsByPeriod('0/today'));
     });
   }, [socket]);
 
   React.useEffect(() => {
-    dispatch(getChatsByPeriod(new Date().toISOString()));
+    dispatch(getChatsByPeriod('0/today'));
     dispatch(getTodayChats());
     getNewChatEvent();
   }, [dispatch, getNewChatEvent]);

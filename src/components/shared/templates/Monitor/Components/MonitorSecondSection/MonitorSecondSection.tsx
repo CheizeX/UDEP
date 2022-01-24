@@ -105,7 +105,7 @@ export const MonitorSecondSection: FC<IMonitorSecondSection> = ({
                       (chat: any) =>
                         chat.status === ChatStatus.ON_CONVERSATION &&
                         chat.assignedAgent &&
-                        chat.assignedAgent === _id,
+                        chat.assignedAgent._id === _id,
                     ).length ?? 0}
                   </Text>
                 </BadgeMolecule>
@@ -119,7 +119,7 @@ export const MonitorSecondSection: FC<IMonitorSecondSection> = ({
                       (chat: any) =>
                         chat.isTransfer === true &&
                         chat.assignedAgent &&
-                        chat.assignedAgent === _id,
+                        chat.assignedAgent._id === _id,
                     ).length ?? 0}
                   </Text>
                 </BadgeMolecule>

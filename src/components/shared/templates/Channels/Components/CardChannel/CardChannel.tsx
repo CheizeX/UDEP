@@ -6,6 +6,8 @@ import {
   CheckBoxLabel,
   CheckBox,
   DropdownContainerCard,
+  StyledWhatsApp360,
+  StyledFacebookService,
 } from './CardChannel.styled';
 import { IPropsCardChannel } from './CardChannel.interface';
 import { SVGIcon } from '../../../../atoms/SVGIcon/SVGIcon';
@@ -18,6 +20,8 @@ export const CardChannel: FC<IPropsCardChannel> = ({
   icon,
   service,
   isActive,
+  image,
+  providerName,
   setIsSectionWebChat,
   setSeletedComponent,
 }) => {
@@ -31,7 +35,9 @@ export const CardChannel: FC<IPropsCardChannel> = ({
     <StyledCardChannel>
       <div>
         <StyledPicture>
-          <div />
+          <div>
+            <img src={`${image}`} alt="No se encontro la imagen" />
+          </div>
           <SVGIcon iconFile={`/icons/${icon}.svg`} />
         </StyledPicture>
         <div>
@@ -53,13 +59,13 @@ export const CardChannel: FC<IPropsCardChannel> = ({
                 <SVGIcon iconFile="/icons/user_options.svg" />
               )}>
               <DropdownContainerCard>
-                <BadgeMolecule
+                {/* <BadgeMolecule
                   bgColor="transparent"
                   leftIcon={() => <SVGIcon iconFile="/icons/pen.svg" />}>
                   <button type="button">
                     <Text>Editar</Text>
                   </button>
-                </BadgeMolecule>
+                </BadgeMolecule> */}
                 <BadgeMolecule
                   bgColor="transparent"
                   leftIcon={() => <SVGIcon iconFile="/icons/delete.svg" />}>
@@ -73,7 +79,25 @@ export const CardChannel: FC<IPropsCardChannel> = ({
         </div>
       </div>
       <div>
-        <Text>{service}</Text>
+        {providerName === '360' && service === 'WhatsApp' ? (
+          <StyledWhatsApp360>
+            {/* <div>
+              <span>360</span>
+            </div>
+            <span>DIALOG</span> */}
+            <img src="/images/dialog.png" alt="" />
+          </StyledWhatsApp360>
+        ) : null}
+        {!providerName && service === 'Messenger' ? (
+          <StyledFacebookService>
+            <div>
+              <span>facebook</span>
+            </div>
+          </StyledFacebookService>
+        ) : null}
+        <div>
+          <Text>{service}</Text>
+        </div>
       </div>
     </StyledCardChannel>
   );

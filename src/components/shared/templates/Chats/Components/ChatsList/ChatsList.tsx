@@ -120,6 +120,7 @@ export const ChatsList: FC<
                 setActiveByDefaultTab={setActiveByDefaultTab}
                 setDropZoneDisplayed={setDropZoneDisplayed}
                 setChatInputDialogue={setChatInputDialogue}
+
                 // searchByName={searchByName}
               />
             </StyledInConversationRender>

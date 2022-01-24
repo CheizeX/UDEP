@@ -16,6 +16,7 @@ export const AgentToTransfer: FC<IAgentToTransferProps> = ({
   minuts,
   tag,
   message,
+  chatsToday,
 }) => {
   return (
     <>
@@ -52,6 +53,7 @@ export const AgentToTransfer: FC<IAgentToTransferProps> = ({
         ) : (
           tag?.map((element, index) => (
             <StyledContainerTagAgents
+              chatsToday={chatsToday}
               key={index.toString()}
               color={element.color}>
               {element.name}

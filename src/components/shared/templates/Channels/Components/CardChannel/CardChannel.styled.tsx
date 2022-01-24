@@ -66,12 +66,16 @@ export const StyledCardChannel = styled.div`
     height: 52px;
     display: flex;
     align-items: center;
-    padding-left: 17px;
-    & > span {
-      color: ${({ theme }) => theme.Colors.grays[3]};
-      font-size: ${({ theme }) => theme.fontSize[12]};
-      font-weight: ${({ theme }) => theme.fontWeight[600]};
-      line-height: 14px;
+    padding: 0 17px;
+    display: flex;
+    justify-content: space-between;
+    & > div {
+      & > span {
+        color: ${({ theme }) => theme.Colors.grays[3]};
+        font-size: ${({ theme }) => theme.fontSize[12]};
+        font-weight: ${({ theme }) => theme.fontWeight[600]};
+        line-height: 14px;
+      }
     }
   }
 `;
@@ -86,13 +90,19 @@ export const StyledPicture = styled.div`
     background: ${({ theme }) => theme.Colors.blue[1]};
     border-radius: 50%;
     position: relative;
+    & img {
+      max-width: 57px;
+      max-height: 57px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
   & > :nth-child(2) {
     width: 30px;
     height: 30px;
     position: absolute;
-    left: 34px;
-    top: 26px;
+    left: 40px;
+    top: 30px;
     & > div {
       & > * {
         & > svg {
@@ -112,8 +122,8 @@ export const CheckBoxLabel = styled.span<IContainerCard>`
   position: absolute;
   top: 0;
   left: 0;
-  width: 42px;
-  height: 26px;
+  width: 32px;
+  height: 16px;
   border-radius: 15px;
   background: ${({ theme, isChecked }) =>
     isChecked === true ? '#e2fadb' : theme.Colors.grays[8]};
@@ -122,10 +132,10 @@ export const CheckBoxLabel = styled.span<IContainerCard>`
     content: '';
     display: block;
     border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    margin: 3px;
-    margin-left: ${({ isChecked }) => (isChecked === true ? '20px' : '3px')};
+    width: 12px;
+    height: 12px;
+    margin: 1px;
+    margin-left: ${({ isChecked }) => (isChecked === true ? '18px' : '2px')};
     background: ${({ theme, isChecked }) =>
       isChecked === true ? theme.Colors.green[4] : theme.Colors.grays[5]};
     box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
@@ -137,17 +147,17 @@ export const CheckBox = styled.input`
   opacity: 0;
   z-index: 1;
   border-radius: 15px;
-  width: 42px;
-  height: 26px;
+  width: 32px;
+  height: 16px;
   &:checked + ${CheckBoxLabel} {
     background-color: #e2fadb;
     &::after {
       content: '';
       display: block;
       border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      margin-left: 21px;
+      width: 12px;
+      height: 12px;
+      margin-left: 18px;
       transition: 0.2s;
       // background-color: ${({ theme }) => theme.Colors.green[2]};
       // opacity: 0.3;
@@ -185,6 +195,44 @@ export const DropdownContainerCard = styled.div`
     width: 13px;
     & path {
       fill: ${({ theme }) => theme.Colors.grays[3]};
+    }
+  }
+`;
+
+export const StyledWhatsApp360 = styled.div`
+  display: flex;
+  & > div {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & img {
+    max-width: 74px;
+    max-height: 74px;
+    object-fit: cover;
+  }
+`;
+export const StyledFacebookService = styled.div`
+  & > div {
+    border-radius: 0.3125rem;
+    background-color: #1877f2;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 28px;
+    height: 28px;
+    & > span {
+      font-family: 'tahoma';
+      color: ${({ theme }) => theme.Colors.grays[10]};
+      font-weight: ${({ theme }) => theme.fontWeight[600]};
+      font-size: ${({ theme }) => theme.fontSize[14]};
+      line-height: 14px;
+      letter-spacing: 0.4px;
     }
   }
 `;

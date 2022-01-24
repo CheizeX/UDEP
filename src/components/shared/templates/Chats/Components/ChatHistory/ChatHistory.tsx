@@ -130,8 +130,6 @@ export const ChatsHistory: FC<IChatHistoryProps> = ({
     }
   };
 
-  console.log(isSelectedRef, 'ref');
-
   // funcion para que busca mediante el scroll.
   const scrollInnerText = useCallback(() => {
     if (!searchByWords.length) {
@@ -325,7 +323,10 @@ export const ChatsHistory: FC<IChatHistoryProps> = ({
                 <span>
                   <SVGIcon iconFile="/icons/unknown_user.svg" />
                   <span>
-                    {element.assignedAgent && element.assignedAgent.name}
+                    {' '}
+                    {element.assignedAgent &&
+                      element.assignedAgent.name &&
+                      element.assignedAgent.name.slice(0, 18)}
                   </span>
                 </span>
               </StyledCardAgents>

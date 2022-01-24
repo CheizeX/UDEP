@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { SVGIcon } from '../../../../atoms/SVGIcon/SVGIcon';
 import { Text } from '../../../../atoms/Text/Text';
 import {
@@ -11,12 +11,16 @@ import {
   ChatsListHeaderProps,
   ShowOnlyPaused,
 } from '../../ChatsSection/ChatsSection.interface';
-import { useAppSelector } from '../../../../../../redux/hook/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../../../redux/hook/hooks';
 import { ChatFilter } from '../ChatsFilter/ChatFilter/ChatFilter';
 import {
   FilterChannelsProps,
   FilterChannel,
 } from '../ChatsFilter/ChatFilter/ChatFilter.interface';
+import { setSeccionIsPending } from '../../../../../../redux/slices/live-chat/chat-history';
 
 export const ChatsListHeader: FC<
   SortUsers &
@@ -36,13 +40,21 @@ export const ChatsListHeader: FC<
   setShowOnlyPausedChats,
   // onChangeSearchName,
 }) => {
+  const dispatch = useAppDispatch();
   const { chatsOnConversation } = useAppSelector(
     (state) => state.liveChat.chatsOnConversation,
   );
   const { chatsPendings } = useAppSelector(
     (state) => state.liveChat.chatsPendings,
   );
-  // const [isFocus, setIsFocus] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isPendings) {
+      dispatch(setSeccionIsPending(false));
+    } else {
+      dispatch(setSeccionIsPending(isPendings));
+    }
+  });
 
   return (
     <StyledChatsListHeader

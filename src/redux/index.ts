@@ -35,6 +35,7 @@ import chatContainerAuthFacebookState from './slices/channels/auth-facebook';
 import chatIntegrationQRState from './slices/channels/integration-with-qr';
 import listChannelState from './slices/channels/list-channel';
 import chatsHistoryState from './slices/live-chat/chat-history';
+import chatsTodayTransferState from './slices/live-chat/chat-transfer';
 
 const liveChat = combineReducers({
   chatsPendings,
@@ -44,6 +45,7 @@ const liveChat = combineReducers({
   userSelectedToTransferById,
   chatToSetOnConversationIdToState,
   chatsHistoryState,
+  chatsTodayTransferState,
 });
 
 const users = combineReducers({
