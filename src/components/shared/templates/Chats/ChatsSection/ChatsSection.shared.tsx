@@ -37,7 +37,7 @@ export const preDefinedMessages = [
           _id: 0,
           position: 0,
           detail: 'Mensaje de Bienvenida.',
-          text: '¡Hola! Gracias por comunicarte con Admisión UDEP. Déjanos tu consulta y la responderemos lo más pronto posible. Te recordamos que nuestro horario de atención es de lunes a viernes de 8 a.m. a 7 p.m.                                     Te recordamos que nuestro horario de atención es de lunes a viernes de 8 a.m. a 7 p.m.',
+          text: '¡Hola! Gracias por comunicarte con Admisión UDEP. Déjanos tu consulta y la responderemos lo más pronto posible. Te recordamos que nuestro horario de atención es de lunes a viernes de 8 a 1 p.m. y de 4 a 7 p.m. ',
         },
       ],
     },
