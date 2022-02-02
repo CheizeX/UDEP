@@ -1,5 +1,15 @@
 {
+  "/404": "pages/404.html",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+  "/backoffice": "pages/backoffice.html",
+  "/backoffice/reports": "pages/backoffice/reports.html",
+  "/change-password": "pages/change-password.html",
+  "/create-account/[id]": "pages/create-account/[id].html",
+  "/": "pages/index.html",
+  "/live-chat": "pages/live-chat.html",
+  "/onboarding": "pages/onboarding.html",
+  "/request-password-change": "pages/request-password-change.html",
+  "/trial-register": "pages/trial-register.html",
   "/_error": "pages/_error.js"
 }
