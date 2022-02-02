@@ -294,7 +294,7 @@ export const StyledPredefinidedTexts = styled.div<PredefinidedTextsInterface>`
 
   position: absolute;
   width: 350px;
-  height: 250px;
+  height: max-content;
   bottom: 60px;
   box-shadow: 0px 0px 5px ${({ theme }) => theme.Colors.grays[8]};
   border-radius: 10px;

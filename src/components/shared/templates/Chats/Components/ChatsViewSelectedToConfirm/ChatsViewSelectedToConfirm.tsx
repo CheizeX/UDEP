@@ -26,7 +26,6 @@ import {
   StyledFooterToChat,
   StyledChatsViewSelectedToConfirm,
   StyledHeaderChatsViewSelectedToConfirm,
-  StyledPredefinidedTexts,
   StyledFooterPausedButton,
 } from './ChatsViewSelectedToConfirm.styles';
 import { UploadFiles } from '../UploadFiles/UploadFiles';
@@ -35,7 +34,6 @@ import { Message } from '../../../../../../models/chat/chat';
 import { baseRestApi } from '../../../../../../api/base';
 import { useToastContext } from '../../../../molecules/Toast/useToast';
 import { Toast } from '../../../../molecules/Toast/Toast.interface';
-import { preDefinedTextsObject } from '../../ChatsSection/ChatsSection.shared';
 import { StyledEmojisContainer } from '../Emojis/Emojis.styled';
 import { emojisDisplayedObject } from '../Emojis/Emojis.shared';
 import {
@@ -49,6 +47,7 @@ import { setChatToSetOnConversationInStateId } from '../../../../../../redux/sli
 import { RootState } from '../../../../../../redux';
 import { readHistoryChat } from '../../../../../../api/chat';
 import { setChatsHistory } from '../../../../../../redux/slices/live-chat/chat-history';
+import { PreDefinedMessages } from '../PreDefinedMessages/PreDefinedMessages';
 
 export const ChatsViewSelectedToConfirm: FC<
   SelectedUserProps &
@@ -98,6 +97,8 @@ export const ChatsViewSelectedToConfirm: FC<
   const [sendingMessage, setSendingMessage] = React.useState<boolean>(false);
 
   const [accessToken] = useLocalStorage('AccessToken', '');
+  const [sectionNext, setIsSecionNext] = React.useState<boolean>(false);
+  const [isSectionText, setIssSecionText] = React.useState<boolean>(false);
 
   const chatToSetInConversation = chatsPendings?.find(
     (chat) => chat.client.clientId === userSelected,
@@ -111,30 +112,30 @@ export const ChatsViewSelectedToConfirm: FC<
   const chatToTalkWithUserNumber = chatToTalkWithUser?.client.clientId;
 
   const handleSetUserToOnConversation = async () => {
-    if (chatsOnConversation?.length < userDataInState?.maxChatsOnConversation) {
-      try {
-        await baseRestApi.patch(
-          `/chats/initConversation/${chatToSetInConversationId}`,
-          {
-            accessToken,
-          },
-        );
-        setUserSelected(userSelected as any);
-        setActiveByDefaultTab(1);
-      } catch (error) {
-        showAlert?.addToast({
-          alert: Toast.ERROR,
-          title: 'ERROR',
-          message: `INIT-CONVERSATION-ERROR ${error}`,
-        });
-      }
-    } else {
+    // if (chatsOnConversation?.length < userDataInState?.maxChatsOnConversation) {
+    try {
+      await baseRestApi.patch(
+        `/chats/initConversation/${chatToSetInConversationId}`,
+        {
+          accessToken,
+        },
+      );
+      setUserSelected(userSelected as any);
+      setActiveByDefaultTab(1);
+    } catch (error) {
       showAlert?.addToast({
         alert: Toast.ERROR,
-        title: 'Máximo de chats alcanzado',
-        message: `Solo puedes tener ${userDataInState?.maxChatsOnConversation} chats activos`,
+        title: 'ERROR',
+        message: `INIT-CONVERSATION-ERROR ${error}`,
       });
     }
+    // } else {
+    //   showAlert?.addToast({
+    //     alert: Toast.ERROR,
+    //     title: 'Máximo de chats alcanzado',
+    //     message: `Solo puedes tener ${userDataInState?.maxChatsOnConversation} chats activos`,
+    //   });
+    // }
   };
 
   const handleEnterToSendMessage = async (
@@ -239,6 +240,8 @@ export const ChatsViewSelectedToConfirm: FC<
     };
     try {
       setShowPredefinedTexts(false);
+      setIsSecionNext(false);
+      setIssSecionText(false);
       if (chatToTalkWithUser?.channel === 'WhatsApp') {
         await baseRestApi.patch(
           `/whatsapp360/sendMessageToUser/${chatToTalkWithUserId}/${chatToTalkWithUserNumber}`,
@@ -323,6 +326,8 @@ export const ChatsViewSelectedToConfirm: FC<
 
   const handlePredefinedTexts = () => {
     setEmojisDisplayed(false);
+    setIsSecionNext(false);
+    setIssSecionText(false);
     setShowPredefinedTexts(!showPredefinedTexts);
   };
   const handleDropZoneDisplayed = () => {
@@ -477,10 +482,21 @@ export const ChatsViewSelectedToConfirm: FC<
                   </button>
                 ))}
             </StyledEmojisContainer>
-            <StyledPredefinidedTexts
+            {/* <StyledPredefinidedTexts
+            //  > */}
+            {/*   Componente que renderiza los mensajes predeterminados */}
+            <PreDefinedMessages
+              handleClickToSendPredefinidedTexts={
+                handleClickToSendPredefinidedTexts
+              }
+              sectionNext={sectionNext}
+              isSectionText={isSectionText}
+              setIsSecionNext={setIsSecionNext}
+              setIssSecionText={setIssSecionText}
               showPredefinedTexts={showPredefinedTexts}
-              setShowPredefinedTexts={setShowPredefinedTexts}>
-              {preDefinedTextsObject &&
+              setShowPredefinedTexts={setShowPredefinedTexts}
+            />
+            {/* {preDefinedTextsObject &&
                 preDefinedTextsObject?.map((text) => (
                   <button
                     key={text.id}
@@ -493,8 +509,8 @@ export const ChatsViewSelectedToConfirm: FC<
                       {text.text}
                     </Text>
                   </button>
-                ))}
-            </StyledPredefinidedTexts>
+                ))} */}
+            {/* </StyledPredefinidedTexts> */}
 
             <button type="button" onClick={handleDropZoneDisplayed}>
               <SVGIcon iconFile="/icons/clipper.svg" />
